@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)file:///C:/Users/user/Downloads/devpulse-project/Devp.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevPulse — Developer Focus &amp; Micro-Task Hub</title>
+  <link rel="stylesheet" href="./DevPulse — Developer Focus &amp; Micro-Task Hub_files/style.css">
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com/">
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+  <link href="./DevPulse — Developer Focus &amp; Micro-Task Hub_files/css2" rel="stylesheet">
+<style>
+  
+</style></head>
+
+
+<body>
+  
+ 
+  <div class="app-layout">
+    <!-- Collapsible Sidebar -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <div class="brand">
+        <div class="brand-badge" aria-hidden="true">DP</div>
+        <div class="brand-info">
+          <span class="brand-name">DevPulse</span>
+          <span class="brand-tag">v1.0.0</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="file:///C:/Users/user/Downloads/devpulse-project/Devp.html#dashboard" class="nav-link active" aria-current="page">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          <span>Dashboard</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button id="btn-seed" class="btn btn-secondary btn-full" title="Populate with sample engineering tasks">
+          Load Demo Data
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <div class="main-wrapper">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="btn-toggle-sidebar" class="btn btn-icon" aria-label="Toggle navigation menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <h1 class="page-title">Active Sprints &amp; Backlog</h1>
+        </div>
+        <div class="topbar-right">
+          <button id="btn-export-csv" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Export CSV
+          </button>
+          <button id="btn-open-modal" class="btn btn-primary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            Create Task
+          </button>
+        </div>
+      </header>
+
+      <main class="content-container">
+        <!-- Metric Cards -->
+        <section class="kpi-grid" aria-label="Key Performance Indicators">
+          <div class="kpi-card">
+            <span class="kpi-label">Total Backlog</span>
+            <div class="kpi-value" id="kpi-total">0</div>
+          </div>
+          <div class="kpi-card accent-progress">
+            <span class="kpi-label">In Progress</span>
+            <div class="kpi-value" id="kpi-progress">0</div>
+          </div>
+          <div class="kpi-card accent-review">
+            <span class="kpi-label">Code Review</span>
+            <div class="kpi-value" id="kpi-review">0</div>
+          </div>
+          <div class="kpi-card accent-done">
+            <span class="kpi-label">Completed</span>
+            <div class="kpi-value" id="kpi-done">0</div>
+          </div>
+        </section>
+
+        <!-- Filters & Search Toolbar -->
+        <section class="toolbar" aria-label="Filters and search">
+          <div class="search-box">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="search" id="input-search" placeholder="Search tasks or tags..." aria-label="Search tasks">
+          </div>
+          <div class="filter-group">
+            <select id="filter-status" aria-label="Filter by status">
+              <option value="ALL">All Statuses</option>
+              <option value="TODO">To Do</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="CODE_REVIEW">In Review</option>
+              <option value="DONE">Done</option>
+            </select>
+            <select id="filter-priority" aria-label="Filter by priority">
+              <option value="ALL">All Priorities</option>
+              <option value="URGENT">Urgent (P0)</option>
+              <option value="HIGH">High (P1)</option>
+              <option value="MEDIUM">Medium (P2)</option>
+              <option value="LOW">Low (P3)</option>
+            </select>
+            <select id="sort-by" aria-label="Sort tasks">
+              <option value="deadline-asc">Deadline (Earliest First)</option>
+              <option value="deadline-desc">Deadline (Latest First)</option>
+              <option value="priority-desc">Priority (P0 to P3)</option>
+              <option value="created-desc">Created (Newest First)</option>
+            </select>
+          </div>
+        </section>
+
+        <!-- Dynamic List Container -->
+        <section class="tasks-wrapper" aria-label="Task board">
+          <div class="tasks-header">
+            <span id="results-count">Showing 0 tasks</span>
+          </div>
+          <ul class="task-list" id="task-list" role="list"></ul>
+          <!-- Fallback Empty State -->
+          <div class="empty-state" id="empty-state">
+            <div class="empty-illustration">⚡</div>
+            <h3 class="empty-title">No tasks found</h3>
+            <p class="empty-desc">Clear your search query, update filters, or add your first development ticket to get moving.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- Native Accessible Dialog (Modal) -->
+  <dialog id="task-modal" class="modal-dialog" aria-labelledby="modal-title">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="modal-title" class="modal-title">Create Task</h2>
+        <button type="button" id="btn-close-modal" class="btn btn-icon" aria-label="Close dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form id="task-form" method="dialog">
+        <input type="hidden" id="task-id" value="">
+        
+        <div class="form-group">
+          <label for="task-title">Task Title <span class="required">*</span></label>
+          <input type="text" id="task-title" required="" placeholder="e.g. Implement JWT refresh token rotation" maxlength="120">
+        </div>
+
+        <div class="form-group">
+          <label for="task-desc">Description</label>
+          <textarea id="task-desc" rows="3" placeholder="Context, acceptance criteria, or PR notes..."></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-status">Status</label>
+            <select id="task-status" required="">
+              <option value="TODO">To Do</option>
+              <option value="IN_PROGRESS">In Progress</option>
+              <option value="CODE_REVIEW">In Review</option>
+              <option value="DONE">Done</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="task-priority">Priority</label>
+            <select id="task-priority" required="">
+              <option value="LOW">P3 - Low</option>
+              <option value="MEDIUM" selected="">P2 - Medium</option>
+              <option value="HIGH">P1 - High</option>
+              <option value="URGENT">P0 - Urgent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="task-deadline">Target Deadline <span class="required">*</span></label>
+            <input type="date" id="task-deadline" required="">
+          </div>
+          <div class="form-group">
+            <label for="task-tags">Tags (Comma-separated)</label>
+            <input type="text" id="task-tags" placeholder="backend, auth, api">
+          </div>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" id="btn-cancel-modal" class="btn btn-secondary">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+<script src="./DevPulse — Developer Focus &amp; Micro-Task Hub_files/app.js"></script>
+
+</body></html>
